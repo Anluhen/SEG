@@ -1,0 +1,24 @@
+Input, Pm(t), [], soma1;
+Input, ws, [], ganho3;
+Somador, soma1, 2, ganho1;
+Ganho, ganho1, ws/2*H, G1, int1;
+Ganho, ganho3, -1, G3, soma2;
+Integrador, int1, w(t), soma2;
+Somador, soma2, 2, int2;
+Integrador, int2, delta(t), seno1;
+Seno, seno1, ganho2;
+Ganho, ganho2, -Pmax, G2, soma1;
+
+
+##Tipo_do_Bloco(Ganho), Nome, Ganho, Variável, [Conexão_Saida];
+##Tipo_do_Bloco(Input), Nome(t), Entrada, [Conexão_Saida];
+##Tipo_do_Bloco(Output), Nome;
+##Tipo_do_Bloco(Somador), Nome, Numero_entradas_esperadas, [Conexão_Saida];
+##Tipo_do_Bloco(Integrador), Nome, Variável_Saida(t), [Conexão_Saida];
+##Tipo_do_Bloco(Lag), Nome, Parâmetro_s, Parâmetro_+, Variável_Saída(t), [Conexão_Saida];
+##Tipo_do_Bloco(Lead), Nome, Parâmetro_s, Parâmetro_+, Variável_Saída(t), [Conexão_Saida];
+##Tipo_do_Bloco(Leadlag), Nome, Parâmetro_s_lead, Parâmetro_+_lead, Parâmetro_s_lag, Parâmetro_+_lag, Variável_Saída(t), [Conexão_Saida]; 
+
+##Exc, 3; ##Adicionar o tipo pra saber em que lugar do matdyn adicionar
+
+

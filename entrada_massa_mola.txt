@@ -1,0 +1,20 @@
+##Tipo_do_Bloco(Ganho), Nome, Ganho, Variável, [Conexão_Saida];
+##Tipo_do_Bloco(Input), Nome(t), Entrada, [Conexão_Saida];
+##Tipo_do_Bloco(Output), Nome;
+##Tipo_do_Bloco(Somador), Nome, Numero_entradas_esperadas, [Conexão_Saida];
+##Tipo_do_Bloco(Integrador), Nome, Variável_Saida(t), [Conexão_Saida];
+##Tipo_do_Bloco(Lag), Nome, Parâmetro_s, Parâmetro_+, Variável_Saída(t), [Conexão_Saida];
+##Tipo_do_Bloco(Lead), Nome, Parâmetro_s, Parâmetro_+, Variável_Saída(t), [Conexão_Saida];
+##Tipo_do_Bloco(Leadlag), Nome, Parâmetro_s_lead, Parâmetro_+_lead, Parâmetro_s_lag, Parâmetro_+_lag, Variável_Saída(t), [Conexão_Saida]; 
+
+Integrador, intv, V(t), intx, ganhob;
+Integrador, intx, X(t), ganhok;
+Ganho, ganhob, 1, b, soma;
+Ganho, ganhok, 1, k, soma;
+Ganho, ganhom, -1/5, m, intv;
+Somador, soma, 2, ganhom;
+
+##[Vsol, Xsol] = dsolve(e, V(0) == 0, X(0) == 10)
+##fplot(Vsol, [0 50])
+##hold on
+##fplot(Xsol, [0 50])

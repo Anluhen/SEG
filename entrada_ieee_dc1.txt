@@ -1,0 +1,22 @@
+##Tipo_do_Bloco(Ganho), Nome, Ganho, Variável, [Conexão_Saida];
+##Tipo_do_Bloco(Input), Nome(t), Entrada, [Conexão_Saida];
+##Tipo_do_Bloco(Output), Nome;
+##Tipo_do_Bloco(Somador), Nome, Numero_entradas_esperadas, [Conexão_Saida];
+##Tipo_do_Bloco(Integrador), Nome, Variável_Saida(t), [Conexão_Saida];
+##Tipo_do_Bloco(Lag), Nome, Parâmetro_s, Parâmetro_+, Variável_Saída(t), [Conexão_Saida];
+##Tipo_do_Bloco(Lead), Nome, Parâmetro_s, Parâmetro_+, Variável_Saída(t), [Conexão_Saida];
+##Tipo_do_Bloco(Leadlag), Nome, Parâmetro_s_lead, Parâmetro_+_lead, Parâmetro_s_lag, Parâmetro_+_lag, Variável_Saída(t), [Conexão_Saida]; 
+
+
+Input, Vref(t), [], somador1;
+Input, V(t), [], ganho1;
+Somador, somador1, 2, somador2;
+Somador, somador2, 2, leadlag2;
+Somador, somador3, 2, leadlag1;
+Ganho, ganho1, -1, G1, somador1;
+Ganho, ganho2, -1, G2, somador2;
+Ganho, ganho3, -1, G3, somador3;
+Ganho, ganho4, Se, Se, ganho3;
+Leadlag, leadlag1, 0, 1, Te, Ke, Efd(t), ganho4, leadlag3;
+Leadlag, leadlag2, 0, Ka, Ta, 1, Vr(t), somador3;
+Leadlag, leadlag3, Kf, 0, Tf, 1, Rf(t), ganho2;

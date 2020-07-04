@@ -1,0 +1,37 @@
+##Tipo_do_Bloco(Ganho), Nome, Ganho, Variável, [Conexão_Saida];
+##Tipo_do_Bloco(Input), Nome(t), Entrada, [Conexão_Saida];
+##Tipo_do_Bloco(Output), Nome;
+##Tipo_do_Bloco(Somador), Nome, Numero_entradas_esperadas, [Conexão_Saida];
+##Tipo_do_Bloco(Integrador), Nome, Variável_Saida(t), [Conexão_Saida];
+##Tipo_do_Bloco(Lag), Nome, Parâmetro_s, Parâmetro_+, Variável_Saída(t), [Conexão_Saida];
+##Tipo_do_Bloco(Lead), Nome, Parâmetro_s, Parâmetro_+, Variável_Saída(t), [Conexão_Saida];
+##Tipo_do_Bloco(Leadlag), Nome, Parâmetro_s_lead, Parâmetro_+_lead, Parâmetro_s_lag, Parâmetro_+_lag, Variável_Saída(t), [Conexão_Saida]; 
+
+
+Input, omegas(t), [], somador1;
+Input, omega(t), [], ganho2;
+Ganho, ganho2, -1, g2, somador1;
+Somador, somador1, 2, ganho1;
+Ganho, ganho1, K, K, lag1;
+
+##Leadlag, leadlag1, T2, 1, T1, 1, x(t), somador2;
+Lag, lag1, T1, 1, x(t), lead1;
+Lead, lead1, T2, 1, P(t), somador2;
+
+Somador, somador2, 2, ganho3;
+Ganho, ganho3, 1/T3, T3, integrador1;
+Integrador, integrador1, Pm(t), ganho4, output1;
+Ganho, ganho4, -1, g4, somador2;
+Output, output1;
+
+##Referência para o MartDyn tipo excitador
+Tipo, 3;
+
+##Tipo_Variaveis(Xexc, Pexc, Vexc), [Variáveis];
+Xexc, x, Pm;
+Pexc, T1, T2, T3, K;
+Vexc, omega;
+
+##Varíaveis que necessitam de condições iniciais
+Inicial, x;
+Inicial, Pm;

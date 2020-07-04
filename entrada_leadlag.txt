@@ -1,0 +1,23 @@
+##Tipo_do_Bloco(Ganho), Nome, Ganho, Variável, [Conexão_Saida];
+##Tipo_do_Bloco(Input), Nome(t), Entrada, [Conexão_Saida];
+##Tipo_do_Bloco(Output), Nome;
+##Tipo_do_Bloco(Somador), Nome, Numero_entradas_esperadas, [Conexão_Saida];
+##Tipo_do_Bloco(Integrador), Nome, Variável_Saida(t), [Conexão_Saida];
+##Tipo_do_Bloco(Lag), Nome, Parâmetro_s, Parâmetro_+, Variável_Saída(t), [Conexão_Saida];
+##Tipo_do_Bloco(Lead), Nome, Parâmetro_s, Parâmetro_+, Variável_Saída(t), [Conexão_Saida];
+##Tipo_do_Bloco(Leadlag), Nome, Parâmetro_s_lead, Parâmetro_+_lead, Parâmetro_s_lag, Parâmetro_+_lag, Variável_Saída(t), [Conexão_Saida]; 
+
+Input, dw(t), dw(t), ganho1;
+Ganho, ganho1, -1/Rp, Rp, som1;
+Input, Pc(t), Pc(t), som1;
+Somador, som1, 2, lag1;
+Lag, lag1, Tg, 1, ddy, dy(t), leadlag1;
+
+Leadlag, leadlag1, Tr, 1, Tr*(Rt/Rp), 1, ddy, ddG, var1(t), dG(t), lead2;
+
+##Lead, lead1, Tr, 1, ddy, var1(t), lag2;
+##Lag, lag2, Tr*(Rt/Rp), 1, ddG, dG(t), lead2;
+
+Lead, lead2, -Tw, 1, ddG, var2(t), lag3;
+Lag, lag3, T2*(1/2), 1, ddPm, dPm(t), out1;
+Output, out1;

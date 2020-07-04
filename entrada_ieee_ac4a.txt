@@ -1,0 +1,32 @@
+##Tipo_do_Bloco(Ganho), Nome, Ganho, Variável, [Conexão_Saida];
+##Tipo_do_Bloco(Input), Nome(t), Entrada, [Conexão_Saida];
+##Tipo_do_Bloco(Output), Nome;
+##Tipo_do_Bloco(Somador), Nome, Numero_entradas_esperadas, [Conexão_Saida];
+##Tipo_do_Bloco(Integrador), Nome, Variável_Saida(t), [Conexão_Saida];
+##Tipo_do_Bloco(Lag), Nome, Parâmetro_s, Parâmetro_+, Variável_Saída(t), [Conexão_Saida];
+##Tipo_do_Bloco(Lead), Nome, Parâmetro_s, Parâmetro_+, Variável_Saída(t), [Conexão_Saida];
+##Tipo_do_Bloco(Leadlag), Nome, Parâmetro_s_lead, Parâmetro_+_lead, Parâmetro_s_lag, Parâmetro_+_lag, Variável_Saída(t), [Conexão_Saida]; 
+
+
+
+Input, Uref(t), somador1;
+Input, U(t), ganho2;
+Ganho, ganho2, -1, somador1;
+Somador, somador1, 2, lag1;
+Lag, lag1, Tb, 1, x(t), lead1;
+Lead, lead1, Tc, 1, Ur(t), ganho1;
+Ganho, ganho1, Ka, lag2;
+Lag, lag2, Ta, 1, Efd(t), output1;
+Output, output1;
+
+##Referência para o MatDyn tipo excitador
+Tipo, 3;
+
+##Tipo_Variaveis(Xexc, Pexc, Vexc), [Variáveis];
+X, Efd, x;
+P, Ka, Ta, Tb, Tc, Uref;
+V, U;
+
+##Varíaveis que necessitam de condições iniciais
+Inicial, x;
+Inicial, Uref;
